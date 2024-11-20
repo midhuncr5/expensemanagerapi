@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min (1).css'%}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body style="height: 100vh;">
+    
+    <div class="container d-flex justify-content-center align-items-center " style="height: 100vh;">
+        {%if messages%}
+           {%for m in messages%}
+           <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{m}}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+
+           {%endfor%}
+        {%endif%}
+        <div class="card mb-3" style="max-width: 75%;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{%static 'images/undraw_Login_re_4vu2.png'%}" class="rounded-start w-100 h-100" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <h3>Register !</h3>
+                        <form action="" method="post">
+                            {%csrf_token%}
+                            {{form}}
+                            <button type="submit" class="btn btn-outline-success mt-2">Register</button>
+                            Already a User <a href="{%url 'login'%}">Signin</a>
+                        </form>
+                    </div>
+                    <div class="col-2"></div>
+                </div> 
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+       
+    </div>
+</body>
+</html>
+
+  

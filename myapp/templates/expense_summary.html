@@ -1,0 +1,126 @@
+{%extends 'base.html'%}
+
+{%block mainblock%}
+
+<div class="contanier">
+  {%if messages%}
+           {%for m in messages%}
+           <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{m}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+
+           {%endfor%}
+        {%endif%}
+
+  
+    <div class="row my-2">
+        <div class="col-4"></div>
+        <div class="col-4 border border-dark rounded shadow p-3 text-center">
+            <h3>total expense :{{total_expense}}</h3>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row border border-dark mx-5 mt-5 p-4 ">
+        <div class="col-3">
+            category summary
+            {%for cat in cateogry_summary%}
+            <div class="mt-2 border p-2">
+                {{cat.category_object__name}} {{cat.total}}
+            </div>
+
+            {%endfor%}
+        </div>
+        <div class="col-3">
+            <canvas id="category_chart"></canvas>
+        </div>
+        <div class="col-3">
+            payment summary
+            {%for pay in payment_summary%}
+            <div class="mt-2 border p-2">
+                {{pay.payment_method}} {{pay.total}}
+            </div>
+
+            {%endfor%}
+        </div>
+        <div class="col-3">
+            <canvas id="payment_summary"></canvas>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}
+
+{%block script_block%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- cateogry summary chart -->
+
+<script>
+  const ctx = document.getElementById('category_chart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: [{%for cat in cateogry_summary%} "{{cat.category_object__name}}",  {%endfor%}],
+      datasets: [{
+        label: '',
+        data: [{%for cat in cateogry_summary%}  "{{cat.total}}", {%endfor%}],
+        borderWidth: 1,
+        backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+//   payment summary
+
+
+const ctx1 = document.getElementById('payment_summary');
+
+  new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+      labels: [{%for pay in payment_summary%}  "{{pay.payment_method}}",  {%endfor%}],
+      datasets: [{
+        label: '',
+        data: [{%for pay in payment_summary%}  "{{pay.total}}",  {%endfor%}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+{%endblock%}

@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+{%block mainblock%}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6">
+            {{message}}
+            <form action="" method="post" enctype="multipart/form-data" class="border border-dark p-4 shadow">
+                {%csrf_token%}
+                <h4 class="fw-bold text-center">cateogry create Form</h4>
+                {{form}}
+                <button type="submit" class="mt-2">ADD</button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6 ">
+            <table class="table table-stripped table-dark">
+                <tr>
+                    <th>cateogry Name</th>
+                    <th>budget</th>
+                    <th>owner</th>
+                    <th>images</th>
+                    <th>Action</th>
+                </tr>
+                {%for c in cateogrys%}
+                <tr>
+                    <td>{{c.name}}</td>
+                    <td>{{c.budget}}</td>
+                    <td>{{c.owner}}</td>
+                    <td><img class="p-1" src="{{c.image.url}}" alt="" height="70px" width="70px"></td>
+                    <td><a href="{%url 'cateogry-edit' c.id%}" class="btn btn-outline-warning">Edit</a></td>
+
+
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+{%block mainblock%}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="" method="post" class="border border-dark p-4 shadow">
+                {%csrf_token%}
+                <h4 class="fw-bold text-center">Transaction create Form</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Enter title:</label>
+                        {{transaction.title}}
+                    </div>
+                    <div class="col-6">
+                        <label>Enter amount:</label>
+                        {{transaction.amount}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><label>Enter cateogry object:</label>
+                        <select name="category_object" id="">
+                            {%for cat in categories%}
+                            <option value="{{cat.id}}">{{cat.name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="col-6"><label>Enter payment method:</label>{{transaction.payment_method}}</div>
+                </div>
+               
+                <button type="submit" class="mt-2">ADD</button>
+            </form>
+
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <table class="table table-stripped table-dark mt-5">
+                <tr>
+                    <th>Title</th>
+                    <th>amount</th>
+                    <th>payment method</th>
+                    <th>Action</th>
+                </tr>
+                {%for t in transactions%}
+                <tr>
+                    <td>{{t.title}}</td>
+                    <td>{{t.amount}}</td>
+                    <td>{{t.payment_method}}</td>
+                    <td><a href="{%url 'transaction-edit' t.id%}" class="btn btn-outline-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{%url 'transaction-delete' t.id%}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a></td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+
+{%endblock%}

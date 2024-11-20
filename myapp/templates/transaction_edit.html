@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+{%block mainblock%}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="" method="post" class="border border-dark p-4 shadow">
+                {%csrf_token%}
+                <h4 class="fw-bold text-center">Transaction Edit Form</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Enter title:</label>
+                        {{transaction.title}}
+                    </div>
+                    <div class="col-6">
+                        <label>Enter amount:</label>
+                        {{transaction.amount}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><label>Enter cateogry object:</label>{{transaction.category_object}}</div>
+                    <div class="col-6"><label>Enter payment method:</label>{{transaction.payment_method}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Enter owner:</label>
+                        {{transaction.owner}}
+                    </div>
+                </div>
+                <button type="submit" class="mt-2">Edit</button>
+            </form>
+
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+
+
+{%endblock%}
